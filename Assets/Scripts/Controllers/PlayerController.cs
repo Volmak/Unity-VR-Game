@@ -7,10 +7,11 @@ public class PlayerController : MonoBehaviour
 {
 	public float maxSpeed;
 	public Text pointsText;
+	public Text alertText;
+	public int points;
 
 	private Rigidbody rb;
 	private Vector3 force;
-	private int points;
 
 	void Start()
 	{
@@ -37,10 +38,20 @@ public class PlayerController : MonoBehaviour
 	{
 		points += numberOfPoints;
 		updatePointsText ();
+		if (GameController.Game.checkWin (points)) {
+			displayVictoryMessage ();
+		}
 	}
 
 	void updatePointsText ()
 	{
 		pointsText.text = "Points: " + points.ToString();
+	}
+
+	void displayVictoryMessage ()
+	{
+		alertText.text = "<b>YOU WON!!!</b>" +
+		"\n Take a comfortable position " +
+		"\n for the game will now restart";
 	}
 }

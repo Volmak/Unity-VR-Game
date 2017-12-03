@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class GridController : MonoBehaviour
 {
-	public Text pointsText;
 	public GameObject Plane;
 	public GameObject Player;
 	public GameObject ViewPoint;
@@ -22,7 +21,6 @@ public class GridController : MonoBehaviour
 
 		float baseHeight = Plane.transform.position.y;
 		float cameraHeight = ViewPoint.transform.position.y;
-		pointsText.text = "base: " + (cameraHeight - transform.position.y).ToString () + " ,  " + cameraHeight.ToString () + " - " + baseHeight.ToString ();
 
 		multiplier = (cameraHeight - baseHeight) / (cameraHeight - transform.position.y);
 	}
