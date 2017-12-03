@@ -37,12 +37,14 @@ public class GridController : MonoBehaviour
 		if (isPointerInside) {
 			// cast a ray to get the coordinates
 			RaycastHit hit;
-			Ray ray = Camera.main.ViewportPointToRay ( new Vector3 (0.5F, 0.5F, 0));
+			Ray ray = Camera.main.ViewportPointToRay (new Vector3 (0.5F, 0.5F, 0));
 
 			if (Physics.Raycast (ray, out hit)) {
 				// multiply by the distance multiplier and pass the direction to the player
 				PlayerController.giveDirection (hit.point * multiplier);
 			}
+		} else {
+			PlayerController.removeForce();
 		}
 	}
 }

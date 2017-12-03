@@ -157,6 +157,7 @@
      <Compile Include="Assets\Scripts\Controllers\CameraController.cs" />
      <Compile Include="Assets\Scripts\Controllers\GameController.cs" />
      <Compile Include="Assets\Scripts\Controllers\GridController.cs" />
+     <Compile Include="Assets\Scripts\Controllers\LavaController.cs" />
      <Compile Include="Assets\Scripts\Controllers\PickupController.cs" />
      <Compile Include="Assets\Scripts\Controllers\PlayerController.cs" />
      <Compile Include="Assets\Scripts\Utils\Rotater.cs" />

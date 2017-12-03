@@ -25,12 +25,19 @@ public class GameController : MonoBehaviour
 			return false;
 		}
 
-		onVictory ();
+		gameOver ();
 
 		return true;
 	}
 
-	void onVictory ()
+	//no lose condition. This method is a placeholder in case of expanding the functionality
+	public bool checkLose ()
+	{
+		gameOver ();
+		return true;
+	}
+
+	void gameOver ()
 	{
 		Invoke("restartGame", restartTimeout);
 	}

@@ -13,6 +13,5 @@ public class PickupController : MonoBehaviour
 			gameObject.SetActive (false);
 			other.gameObject.GetComponent<PlayerController>().addPoints (points);
 		}
-
 	}
 }
