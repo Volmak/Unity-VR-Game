@@ -5,6 +5,7 @@ using UnityEngine;
 public class PickupController : MonoBehaviour 
 {
 	public int points = 1;
+	public AudioSource pickupSound;
 
 	void OnTriggerEnter(Collider other) 
 	{
@@ -12,6 +13,9 @@ public class PickupController : MonoBehaviour
 		{
 			gameObject.SetActive (false);
 			other.gameObject.GetComponent<PlayerController>().addPoints (points);
+
+			pickupSound.transform.position = transform.position;
+			pickupSound.Play ();
 		}
 	}
 }

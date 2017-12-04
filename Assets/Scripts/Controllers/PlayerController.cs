@@ -6,13 +6,19 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour 
 {
 	public float maxSpeed;
+	public int points;
+	public float hp;
+	public bool displayHPDecimal;
+
 	public Text pointsText;
 	public Text hpText;
 	public Text alertText;
 	public Text instructionsText;
-	public int points;
-	public float hp;
-	public bool displayHPDecimal;
+
+	public AudioSource bumpSound;
+	public float velocityToSound;
+	public AudioSource winSound;
+	public AudioSource loseSound;
 
 	private Rigidbody rb;
 	private Vector3 force;
@@ -34,6 +40,15 @@ public class PlayerController : MonoBehaviour
 		rb.AddForce (force);
 	}
 
+	void OnCollisionEnter (Collision collision)
+	{
+		/* play a bump sound on collision */
+		ContactPoint contact = collision.contacts[0];
+		bumpSound.transform.position = contact.point;
+		bumpSound.volume = collision.relativeVelocity.magnitude * velocityToSound;
+		bumpSound.Play ();
+	}
+
 	public void giveDirection (Vector3 pointer)
 	{
 		if (isAlive) {
@@ -53,31 +68,24 @@ public class PlayerController : MonoBehaviour
 	{
 		points += numberOfPoints;
 		updatePointsText ();
+
 		if (GameController.Game.checkWin (points)) {
-			displayVictoryMessage ();
+			win ();
 		}
 	}
 
 	public void takeDamage (float damage)
 	{
-		if (isAlive) {
+		if (isAlive && GameController.Game.getIsRunning()) 
+		{
 			hp -= damage;
 
 			if (hp <= 0) {
-				hp = 0;
-				die ();
+				lose ();
 			}
 
 			updateHPText ();
 		}
-	}
-
-	void die () 
-	{
-		isAlive = false;
-		removeForce ();
-		displayLoseMessage ();
-		GameController.Game.checkLose ();
 	}
 
 	void updatePointsText ()
@@ -91,16 +99,24 @@ public class PlayerController : MonoBehaviour
 		hpText.text = "Hit Points: " + dispVal;
 	}
 
-	void displayVictoryMessage ()
+	void win ()
 	{
+		winSound.Play ();
 		alertText.text = "<b>YOU'VE WON!!!</b>";
 		displayGameOverMessage ();
 	}
 
-	void displayLoseMessage ()
+	void lose ()
 	{
+		isAlive = false;
+		hp = 0;
+		removeForce ();
+
+		loseSound.Play ();
 		alertText.text = "<color=red><b>YOU'VE LOST!!!</b></color>";
 		displayGameOverMessage ();
+
+		GameController.Game.checkLose ();
 	}
 
 	void displayGameOverMessage ()

@@ -10,6 +10,8 @@ public class GameController : MonoBehaviour
 	public int winPoints;
 	public float restartTimeout;
 
+	private bool isRunning;
+
 	void Awake()
 	{
 		if (Game == null) {
@@ -17,6 +19,7 @@ public class GameController : MonoBehaviour
 		} else if (Game != this) {
 			Destroy (gameObject);
 		}
+		isRunning = true;
 	}
 
 	public bool checkWin (int points)
@@ -37,13 +40,20 @@ public class GameController : MonoBehaviour
 		return true;
 	}
 
+	public bool getIsRunning ()
+	{
+		return isRunning;
+	}
+
 	void gameOver ()
 	{
+		isRunning = false;
 		Invoke("restartGame", restartTimeout);
 	}
 
 	void restartGame ()
 	{
+		isRunning = true;
 		Application.LoadLevel (Application.loadedLevel);
 //		SceneManager.LoadScene (SceneManager.GetActiveScene ().name);
 	}

@@ -5,6 +5,7 @@ using UnityEngine;
 public class LavaController : MonoBehaviour {
 
 	public int damagePerSec;
+	public AudioSource damageSound;
 
 	private GameObject PlayerOnLava; //use array for multiplayer
 
@@ -21,6 +22,8 @@ public class LavaController : MonoBehaviour {
 		{
 			PlayerOnLava = other.gameObject;
 		}
+
+		damageSound.Play (); //don't move the source, the player should always hear this loud and clear 
 	}
 
 	void OnTriggerExit(Collider other) 
@@ -29,5 +32,7 @@ public class LavaController : MonoBehaviour {
 		{
 			PlayerOnLava = null;
 		}
+
+		damageSound.Stop ();
 	}
 }
